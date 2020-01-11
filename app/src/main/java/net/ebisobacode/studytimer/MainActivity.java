@@ -16,7 +16,10 @@ public class MainActivity extends AppCompatActivity {
     ImageView mStartButton;
     ImageView mStopButton;
     SoundPool mSoundPool;
+    SoundPool mSoundPoolButton;
+
     int mSoundResId;
+    int mSoundResIdButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         mStartButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
+                mSoundPoolButton.play(mSoundResIdButton, 1.0f, 1.0f, 0, 0, 1.0f);
                 timer.start();
             }
         });
@@ -71,8 +75,15 @@ public class MainActivity extends AppCompatActivity {
                 .setUsage(AudioAttributes.USAGE_ALARM)
                 .build())
                 .build();
+        mSoundPoolButton = new SoundPool.Builder()
+                .setMaxStreams(1)
+                .setAudioAttributes(new AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_ALARM)
+                .build())
+                .build();
 
         mSoundResId = mSoundPool.load(this, R.raw.line_girl1_otsukaresamadeshita1,1);
+        mSoundResIdButton = mSoundPoolButton.load(this, R.raw.decision13,1);
     }
 
     @Override
